@@ -7,22 +7,36 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Setup Subjects Form</title>
+<style>
+      body{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align:center;
+            margin-top:100px !important;
+        }
+		span {
+		  display: inline-block;
+		  min-width: 200px;
+		}
+</style>
+
 </head>
 
 <body>
-	<h1>Enter Subject Details :</h1>
+	<h1>Enter Subject Details</h1><br><br>
 	<form action="setupSubjects" method="post">
-		ID :<br>
+		<span>Enter ID :</span>  
 		<input type="text" name="id">
 		<br>
-		Name : <br>
+		<span>Enter Subject Name :</span>  
 		<input type="text" name="subjectName">
 		<br>
-		Total Grade Points : <br>
+		<span>Enter Subject Grade Points :</span>  
 		<input type="text" name="gradePoints"> <br>
 		<br>
-		<input type="submit" value="submit">
+		<input type="Submit" value="Submit">
 	</form>
-	<h4>To Return to Homepage, <a href="index.jsp">Click Here</a></h4>
+	<br><br>
+	<h5>To View Subjects Table, <a href="DisplaySubjectsServlet">Click Here</a></h5>
+	<h5>To Return to Homepage, <a href="index.jsp">Click Here</a></h5>
 </body>
 </html>

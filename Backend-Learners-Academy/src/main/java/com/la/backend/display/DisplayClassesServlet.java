@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/displayClassesServlet")
+@WebServlet("/DisplayClassesServlet")
 public class DisplayClassesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
@@ -54,14 +54,11 @@ public class DisplayClassesServlet extends HttpServlet {
 				out.println("<td>"+rs.getString(1)+"</td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("</tr>");
-//				out.println(""+rs.getString(2) + ", " + rs.getString(3) + ": Balance=" + rs.getInt(4));
 			}
 			out.println("</table>");
+			out.println("<br><br><a href='setupClassesForm.jsp' align='middle'>Go back?</a>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		request.setAttribute("rs", rs);
-//		request.getRequestDispatcher("/viewClass.jsp");
-//		requestDispatcher.forward(request, response);
 	}
 }

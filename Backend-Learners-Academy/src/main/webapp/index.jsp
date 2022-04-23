@@ -5,13 +5,27 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home Page - LA</title>
+<style>
+      body{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+      .header{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:url("https://www.xmple.com/wallpaper/blue-gradient-white-linear-1920x1080-c2-87cefa-ffffff-a-105-f-14.svg");
+            background-repeat: no-repeat;
+            background-position:center;
+            background-size: cover;
+        }
+</style>
 </head>
 <body>
+	<div class="header">
 	<hr>
 	<h1 align="center">Welcome to Learner's Academy - Backend</h1>
-	<h2 align="center">Following are your options :</h2>
+	<h2 align="center">Action Menu</h2>
 	<br>
 	<hr>
+	</div>
 	<br>
 	<table border="1" align="center">
 		<tr>
@@ -40,8 +54,12 @@
 			<td><a href="setupStudentsForm.jsp">Setup Masters</a></td>
 		</tr>
 		<tr>
-			<td>Assign a 'Subject' to a 'Teacher'</td>
-			<td>In order to assign a subject to a teacher.</td>
+			<td>
+				Assign a 'Subject' to a 'Teacher'<br>
+				(Also Assigns Teacher To Class)
+			</td>
+			<td>In order to assign a Subject to a Teacher
+				<br>and in continuation assign them to a Class. </td>
 			<td><a href="assignSubjectToTeacherForm.jsp">Assign</a></td>
 		</tr>
 		<!--<tr>

@@ -56,14 +56,11 @@ public class DisplayStudentsServlet extends HttpServlet {
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("<td>"+rs.getInt(3)+"</td>");
 				out.println("</tr>");
-//				out.println(""+rs.getString(2) + ", " + rs.getString(3) + ": Balance=" + rs.getInt(4));
 			}
 			out.println("</table>");
+			out.println("<br><br><a href='setupStudentsForm.jsp' align='middle'>Go back?</a>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		request.setAttribute("rs", rs);
-//		request.getRequestDispatcher("/viewClass.jsp");
-//		requestDispatcher.forward(request, response);
 	}
 }

@@ -59,6 +59,7 @@ public class DisplayTeachersServlet extends HttpServlet {
 //				out.println(""+rs.getString(2) + ", " + rs.getString(3) + ": Balance=" + rs.getInt(4));
 			}
 			out.println("</table>");
+			out.println("<br><br><a href='setupTeachersForm.jsp' align='middle'>Go back?</a>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
