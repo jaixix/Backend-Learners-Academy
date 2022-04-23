@@ -72,9 +72,6 @@ public class AssignTeacherToClass extends HttpServlet {
 					
 					int result = ps1.executeUpdate();
 					out.println("<h2>Teacher - ID : " + teacherId + " has been assigned to Class - ID : " + classId + " (Created) </h2>");
-//					out.println("<br><br>Want to assign more/other subjects? <a href='assignSubjectToTeacherForm.jsp'>Click Here</a>");
-//					out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
-					out.close();
 				}
 			}
 			
@@ -84,7 +81,7 @@ public class AssignTeacherToClass extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/assignSubjectToClassForm.jsp");		
 			rd.include(request, response);
 			
-			out.println("<br><br>Want to assign more/other teachers? <a href='assignSubjectToTeacherForm.jsp'>Click Here</a>");
+			out.println("<br><br>Want to assign more/other subjects? <a href='assignSubjectToTeacherForm.jsp'>Click Here</a>");
 			out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
 			
 		} catch (SQLException e) {

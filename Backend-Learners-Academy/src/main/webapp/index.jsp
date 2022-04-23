@@ -25,14 +25,14 @@
 			<td><a href="setupSubjectsForm.jsp">Setup Subjects Master</a></td>
 		</tr>
 		<tr>
-			<td>Setup Master List for 'Teachers'</td>
-			<td>In order to populate Teachers Table.</td>
-			<td><a href="setupTeachersForm.jsp">Setup Teachers Master</a></td>
-		</tr>
-		<tr>
 			<td>Setup Master List for 'Classes'</td>
 			<td>In order to populate Classes Table.</td>
 			<td><a href="setupClassesForm.jsp">Setup Classes Master</a></td>
+		</tr>
+		<tr>
+			<td>Setup Master List for 'Teachers'</td>
+			<td>In order to populate Teachers Table.</td>
+			<td><a href="setupTeachersForm.jsp">Setup Teachers Master</a></td>
 		</tr>
 		<tr>
 			<td>Setup Master List for 'Students'</td>
