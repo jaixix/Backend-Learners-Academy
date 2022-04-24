@@ -22,6 +22,8 @@ private static final long serialVersionUID = 1L;
 	
 	private Connection connection;
 	private PreparedStatement ps;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -40,10 +42,24 @@ private static final long serialVersionUID = 1L;
 		System.out.println("Inside Get Method");
 		try {
 			Statement statement = connection.createStatement();
-			PrintWriter out = response.getWriter();
+			out = response.getWriter();
+			response.setContentType("text/html");
+			out.println("<!DOCTYPE html>\r\n"
+					+ "<html>\r\n"
+					+ "<head>\r\n"
+					+ "<meta charset=\"ISO-8859-1\">\r\n"
+					+ "<title>Setup Classes Form</title>\r\n"
+					+ "<style>\r\n"
+					+ "      body{\r\n"
+					+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+					+ "            text-align:center;\r\n"
+					+ "            margin-top:100px !important;\r\n"
+					+ "        }\r\n"
+					+ "</style>\r\n"
+					+ "</head>");
 //			statement.executeUpdate("delete s from students s join class c on s.class_id = c.id where s.id>0");
 			statement.executeUpdate("update students set students.class_id=0 where students.class_id>0");
-			statement.executeUpdate("update teachers set teachers.class_id=0 where teachers.class_id>0");
+			statement.executeUpdate("delete t from teachers t join class c on t.class_id=t.id where t.id>0");
 			int result = ps.executeUpdate();
 			response.setContentType("text/html");
 			if(result>0) {
@@ -57,6 +73,8 @@ private static final long serialVersionUID = 1L;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

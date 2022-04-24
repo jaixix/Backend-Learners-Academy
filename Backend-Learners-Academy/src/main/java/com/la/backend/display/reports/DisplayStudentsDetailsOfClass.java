@@ -25,6 +25,8 @@ public class DisplayStudentsDetailsOfClass extends HttpServlet {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	private RequestDispatcher requestDispatcher;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -34,7 +36,7 @@ public class DisplayStudentsDetailsOfClass extends HttpServlet {
 					context.getInitParameter("dbUser"), 
 					context.getInitParameter("dbPassword"));
 			Statement statement = connection.createStatement();
-			rs = statement.executeQuery("select distinct s.firstName, s.lastName, s.roll_no, c.name, c.section from students s join class c on s.class_id=c.id");
+			rs = statement.executeQuery("select distinct s.firstName, s.lastName, s.roll_no, c.name, c.section from students s join class c on s.class_id=c.id order by c.section asc,s.roll_no asc");
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -42,9 +44,23 @@ public class DisplayStudentsDetailsOfClass extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside Get Method!");
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:100px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		try {
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
+			out.println("<h3>Student-Class Details Report</h3>");
 			out.println("<table border='1' align='center'>");
 			out.println("<tr>");
 			out.println("<th>First Name</th>");
@@ -67,5 +83,8 @@ public class DisplayStudentsDetailsOfClass extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("<br><br><a href='index.jsp' align='middle'>Go back?</a>");
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 }

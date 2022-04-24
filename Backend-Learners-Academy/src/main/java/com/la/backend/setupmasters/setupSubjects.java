@@ -22,6 +22,8 @@ public class setupSubjects extends HttpServlet {
 	
 	private Connection connection;
 	private PreparedStatement ps;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -44,23 +46,37 @@ public class setupSubjects extends HttpServlet {
 		String subjectName = request.getParameter("subjectName");
 		int gradePoints = Integer.parseInt(request.getParameter("gradePoints"));
 		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:100px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
+		
 		try {
 			ps.setInt(1, id);
 			ps.setString(2, subjectName);
 			ps.setInt(3, gradePoints);
 			int result = ps.executeUpdate();
-			response.setContentType("text/html");
-//			request.setAttribute("res", response);
-//			RequestDispatcher rd = request.getRequestDispatcher("/displayClassesServlet");
-//			rd.include(request, response);
-			PrintWriter out = response.getWriter();
-			out.println("<h1>Values Added Successfully!</h1><br><br>");
+//			out.println("<h1>Values Added Successfully!</h1><br><br>");
+			out.println("<h2>Subject has been Setup Successfully.</h2><br><br>");
 			out.println("Want to add more Subjects? <a href='setupSubjectsForm.jsp'>Click Here</a>");
 			out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
 			out.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

@@ -21,6 +21,7 @@ public class AssignSubjectToTeacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 	private PreparedStatement ps;
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -39,14 +40,27 @@ public class AssignSubjectToTeacher extends HttpServlet {
 		System.out.println("Inside Post Method!");
 		int teacherId = Integer.parseInt(request.getParameter("teacherId"));
 		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:70px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		
 		try {
 			ps.setInt(1, subjectId);
 			ps.setInt(2, teacherId);
 			int result = ps.executeUpdate();
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
+			
 			out.println("<h2>Subject - ID : " + subjectId + " has been assigned to Teacher - ID : " + teacherId + "</h2>");
 			
 			request.setAttribute("teacherId", teacherId);
@@ -61,6 +75,8 @@ public class AssignSubjectToTeacher extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

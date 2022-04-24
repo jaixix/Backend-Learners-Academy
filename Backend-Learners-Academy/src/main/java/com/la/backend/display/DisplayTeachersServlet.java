@@ -34,7 +34,7 @@ public class DisplayTeachersServlet extends HttpServlet {
 					context.getInitParameter("dbUser"), 
 					context.getInitParameter("dbPassword"));
 			Statement statement = connection.createStatement();
-			rs = statement.executeQuery("select firstName, lastName, emailId from bla.teachers;");	
+			rs = statement.executeQuery("select distinct firstName, lastName, emailId from bla.teachers;");	
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +44,20 @@ public class DisplayTeachersServlet extends HttpServlet {
 		try {
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html");
+			out.println("<!DOCTYPE html>\r\n"
+					+ "<html>\r\n"
+					+ "<head>\r\n"
+					+ "<meta charset=\"ISO-8859-1\">\r\n"
+					+ "<title>Setup Classes Form</title>\r\n"
+					+ "<style>\r\n"
+					+ "      body{\r\n"
+					+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+					+ "            text-align:center;\r\n"
+					+ "            margin-top:100px !important;\r\n"
+					+ "        }\r\n"
+					+ "</style>\r\n"
+					+ "</head>");
+			out.println("<h3>Teachers Table</h3><br>");
 			out.println("<table border='1' align='center'>");
 			out.println("<tr>");
 			out.println("<th>First Name</th>");
@@ -56,10 +70,11 @@ public class DisplayTeachersServlet extends HttpServlet {
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("<td>"+rs.getString(3)+"</td>");
 				out.println("</tr>");
-//				out.println(""+rs.getString(2) + ", " + rs.getString(3) + ": Balance=" + rs.getInt(4));
 			}
 			out.println("</table>");
 			out.println("<br><br><a href='setupTeachersForm.jsp' align='middle'>Go back?</a>");
+			out.println("</body>\r\n"
+					+ "</html>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

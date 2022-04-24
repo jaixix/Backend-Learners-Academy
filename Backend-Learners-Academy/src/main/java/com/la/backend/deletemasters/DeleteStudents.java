@@ -21,6 +21,7 @@ public class DeleteStudents extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 	private PreparedStatement ps;
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -37,8 +38,22 @@ public class DeleteStudents extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside Get Method");
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:100px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		try {
-			PrintWriter out = response.getWriter();
 			int result = ps.executeUpdate();
 			response.setContentType("text/html");
 			if(result>0) {
@@ -52,6 +67,8 @@ public class DeleteStudents extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

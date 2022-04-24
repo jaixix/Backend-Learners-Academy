@@ -22,6 +22,8 @@ public class SetupTeachers extends HttpServlet {
 	
 	private Connection connection;
 	private PreparedStatement ps;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		System.out.println("Initializing addProductServlet...");
@@ -45,6 +47,22 @@ public class SetupTeachers extends HttpServlet {
 		String teacherLastName = request.getParameter("teacherLastName");
 		String emailId = request.getParameter("emailId");
 		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:100px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
+		
 		try {
 			ps.setInt(1, id);
 			ps.setString(2, teacherFirstName);
@@ -52,15 +70,16 @@ public class SetupTeachers extends HttpServlet {
 			ps.setString(4, emailId);
 			
 			int result = ps.executeUpdate();
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<h1>Values Added Successfully!</h1>");
+//			out.println("<h1>Values Added Successfully!</h1>");
+			out.println("<h2>Teacher has been Setup Successfully.</h2><br><br>");
 			out.println("Want to add more Teachers? <a href='setupTeachersForm.jsp'>Click Here</a>");
 			out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
 			out.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

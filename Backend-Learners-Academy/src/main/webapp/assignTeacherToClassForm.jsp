@@ -5,6 +5,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Assign Teacher to a Class</title>
+<style>
+      body{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align:center;
+            margin-top:140px !important;
+        }
+		span {
+		  display: inline-block;
+		  min-width: 310px;
+		}
+</style>
 </head>
 <body>
 	<h2>Assigning Teacher to a Class</h2>
@@ -14,13 +25,13 @@
 		String subjectId = request.getParameter("subjectId");
 	%>
 	<form action="assignTeacherToClass" method="post">
-		Teacher Id to be Assigned :
+		<span>Teacher Id to be Assigned :</span>
 		<input type="text" name="teacherId" value='<%=teacherId%>' readonly> <br>
 		<br>
-		Teacher Id to be Assigned for Subject Id :
+		<span>Teacher Id to be Assigned for Subject Id :</span>
 		<input type="text" name="subjectId" value='<%=subjectId%>' readonly> <br>
 		<br>
-		Enter Class Id to be Assigned To :
+		<span>Enter Class Id to be Assigned To :</span>
 		<input type="text" name="classId">
 		<br><br>
 		<input type="submit" value="Submit">

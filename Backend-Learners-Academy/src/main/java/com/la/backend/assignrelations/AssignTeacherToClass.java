@@ -26,6 +26,8 @@ public class AssignTeacherToClass extends HttpServlet {
 	private PreparedStatement ps;
 	private PreparedStatement ps1;
 
+	private PrintWriter out;
+
 //	private Statement statement1;
 	
 	public void init(ServletConfig sc) {
@@ -47,10 +49,22 @@ public class AssignTeacherToClass extends HttpServlet {
 		int teacherId = Integer.parseInt(request.getParameter("teacherId"));
 		int classId = Integer.parseInt(request.getParameter("classId"));
 		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:70px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		try {
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
 			System.out.println(teacherId+" "+classId+" "+subjectId+" ");
 			Statement statement1 = connection.createStatement();
 			ResultSet rs = statement1.executeQuery("select * from teachers where teachers.id="+teacherId);
@@ -87,6 +101,8 @@ public class AssignTeacherToClass extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

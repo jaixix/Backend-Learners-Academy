@@ -1,12 +1,14 @@
-package com.la.backend.setupmasters;
+package com.la.backend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,15 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.la.backend.display.DisplayClassesServlet;
-@WebServlet("/setupClasses")
-public class SetupClasses extends HttpServlet{
+@WebServlet("/loginFunctionality")
+public class LoginFunctionality extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Connection connection;
-	private PreparedStatement ps;
-
 	private PrintWriter out;
+	private Statement statement;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -32,20 +32,20 @@ public class SetupClasses extends HttpServlet{
 			connection = DriverManager.getConnection(context.getInitParameter("dbUrl"), 
 					context.getInitParameter("dbUser"), 
 					context.getInitParameter("dbPassword"));
-			ps = connection.prepareStatement("insert into class values(?, 0, ?, ?)");
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-
+       
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside Post Method!");
 		
-		int id = Integer.parseInt(request.getParameter("id"));
-		String className = request.getParameter("className");
-		String sectionName = request.getParameter("sectionName");
-		response.setContentType("text/html");
+		String emailId = request.getParameter("emailId");
+		String password = request.getParameter("password");
+		
 		out = response.getWriter();
+		response.setContentType("text/html");
+		
 		out.println("<!DOCTYPE html>\r\n"
 				+ "<html>\r\n"
 				+ "<head>\r\n"
@@ -60,29 +60,28 @@ public class SetupClasses extends HttpServlet{
 				+ "</style>\r\n"
 				+ "</head>");
 		try {
-			ps.setInt(1, id);
-			ps.setString(2, className);
-			ps.setString(3, sectionName);
-			int result = ps.executeUpdate();
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery("select * from admin where email='"+emailId+"' and password='"+password+"'");
 			
-			out.println("<h2>Class has been Setup Successfully.</h2>");
-			out.println("<br>Want to add more Classes? <a href='setupClassesForm.jsp'>Click Here</a>");
-			out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
-			out.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			if(rs.next()) {
+					//successful login
+					out.println("<p>Login Successfull</p>");
+					request.setAttribute("emailId", emailId);
+//					request.setAttribute("adminName", rs.getString(4));
+					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+					rd.forward(request, response);
+				}
+			else {
+					// unsuccessful login - incorrect email or incorrect password
+					out.println("<h3>Login failed</h3>");
+					out.println("<h3>Email/Password Incorrect</h3><br><br>");
+					RequestDispatcher rd = request.getRequestDispatcher("/LoginForm.jsp");
+					rd.include(request, response);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			out.println("</body>\r\n"
+					+ "</html>");
 		}
-		out.println("</body>\r\n"
-				+ "</html>");
-	}
-	
-	public void destroy() {
-		try {
-			if (connection != null) {
-				connection.close();
-			} 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

@@ -20,6 +20,7 @@ public class AssignStudentToClass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 	private PreparedStatement ps;
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -38,14 +39,25 @@ public class AssignStudentToClass extends HttpServlet {
 		System.out.println("Inside Post Method!");
 		int studentId = Integer.parseInt(request.getParameter("studentId"));
 		int classId = Integer.parseInt(request.getParameter("classId"));
-		
-		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:70px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		try {
 			ps.setInt(1, classId);
 			ps.setInt(2, studentId);
 			int result = ps.executeUpdate();
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
 			out.println("<h2>Student - ID : " + studentId + " has been assigned to Class - ID : " + classId + "</h2>");
 			out.println("<br><br>Want to assign more/other students? <a href='setupStudentsForm.jsp'>Click Here</a>");
 			out.println("<br><br>Want to return to the Homepage? <a href='index.jsp'>Click Here</a>");
@@ -53,6 +65,8 @@ public class AssignStudentToClass extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

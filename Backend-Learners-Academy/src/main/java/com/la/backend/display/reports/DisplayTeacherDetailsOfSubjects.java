@@ -26,6 +26,8 @@ public class DisplayTeacherDetailsOfSubjects extends HttpServlet {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	private RequestDispatcher requestDispatcher;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -43,8 +45,22 @@ public class DisplayTeacherDetailsOfSubjects extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Inside Get Method!");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:140px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
+		out.println("<h3>Teacher-Class-Subject Details Report</h3>");
 		try {
-			PrintWriter out = response.getWriter();
 			response.setContentType("text/html");
 			out.println("<table border='1' align='center'>");
 			out.println("<tr>");
@@ -72,5 +88,8 @@ public class DisplayTeacherDetailsOfSubjects extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("<br><br><a href='index.jsp' align='middle'>Go back?</a>");
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 }

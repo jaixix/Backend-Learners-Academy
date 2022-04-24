@@ -44,19 +44,35 @@ public class DisplayClassesServlet extends HttpServlet {
 		try {
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html");
+			out.println("<!DOCTYPE html>\r\n"
+					+ "<html>\r\n"
+					+ "<head>\r\n"
+					+ "<meta charset=\"ISO-8859-1\">\r\n"
+					+ "<title>Setup Classes Form</title>\r\n"
+					+ "<style>\r\n"
+					+ "      body{\r\n"
+					+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+					+ "            text-align:center;\r\n"
+					+ "            margin-top:100px !important;\r\n"
+					+ "        }\r\n"
+					+ "</style>\r\n"
+					+ "</head>");
+			out.println("<h3>Classes Table</h3><br>");
 			out.println("<table border='1' align='center'>");
 			out.println("<tr>");
 			out.println("<th>Class Name</th>");
 			out.println("<th>Section</th>");
 			out.println("</tr>");
 			while (rs.next()) {
-				out.println("<tr>");
+				out.println("<tr>"); 
 				out.println("<td>"+rs.getString(1)+"</td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("</tr>");
 			}
 			out.println("</table>");
 			out.println("<br><br><a href='setupClassesForm.jsp' align='middle'>Go back?</a>");
+			out.println("</body>\r\n"
+					+ "</html>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

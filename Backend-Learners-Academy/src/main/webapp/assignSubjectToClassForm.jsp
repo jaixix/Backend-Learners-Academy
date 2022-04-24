@@ -5,6 +5,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+      body{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align:center;
+            margin-top:140px !important;
+        }
+		span {
+		  display: inline-block;
+		  min-width: 310px;
+		}
+</style>
 </head>
 
 <%
@@ -16,10 +27,10 @@
 	<h2>Assigning Subjects to Classes</h2>
 	<br>
 	<form action="assignSubjectToClass" method="post">
-		Subject Id to be Assigned :
+		<span>Subject Id to be Assigned :</span>
 		<input type="text" name="subjectId" value='<%=subjectId%>' readonly> <br>
 		<br>
-		Enter Class Id to be Assigned To :
+		<span>Enter Class Id to be Assigned To :</span>
 		<input type="text" name="classId" value='<%=classId%>' readonly>
 		<br><br>
 		<input type="submit" value="Submit">

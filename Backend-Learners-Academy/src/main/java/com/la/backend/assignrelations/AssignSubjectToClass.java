@@ -24,6 +24,7 @@ public class AssignSubjectToClass extends HttpServlet {
 	private PreparedStatement ps;
 	private PreparedStatement ps1;
 	private Statement statement;
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		ServletContext context = sc.getServletContext();
@@ -43,11 +44,23 @@ public class AssignSubjectToClass extends HttpServlet {
 		System.out.println("Inside Post Method!");
 		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 		int classId = Integer.parseInt(request.getParameter("classId"));
-		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:70px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
 		try {
 			statement = connection.createStatement();
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
 			ResultSet rs = statement.executeQuery("select * from class where class.id="+classId);
 			
 			while(rs.next()) {
@@ -79,6 +92,8 @@ public class AssignSubjectToClass extends HttpServlet {
 		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

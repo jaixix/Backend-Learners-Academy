@@ -23,6 +23,8 @@ public class SetupStudents extends HttpServlet {
 	
 	private Connection connection;
 	private PreparedStatement ps;
+
+	private PrintWriter out;
 	
 	public void init(ServletConfig sc) {
 		System.out.println("Initializing addProductServlet...");
@@ -47,16 +49,30 @@ public class SetupStudents extends HttpServlet {
 		String studentLastName = request.getParameter("studentLastName");
 		int rollNumber = Integer.parseInt(request.getParameter("rollNumber"));
 		
+		response.setContentType("text/html");
+		out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Setup Classes Form</title>\r\n"
+				+ "<style>\r\n"
+				+ "      body{\r\n"
+				+ "            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n"
+				+ "            text-align:center;\r\n"
+				+ "            margin-top:70px !important;\r\n"
+				+ "        }\r\n"
+				+ "</style>\r\n"
+				+ "</head>");
+		
 		try {
 			ps.setInt(1, id);
 			ps.setString(2, studentFirstName);
 			ps.setString(3, studentLastName);
 			ps.setInt(4, rollNumber);
 			int result = ps.executeUpdate();
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<h1>Values Added Successfully!</h1><br><br>");
-			
+//			out.println("<h1>Values Added Successfully!</h1><br><br>");
+			out.println("<h2>Student has been Setup Successfully.</h2><br><br>");
 			request.setAttribute("studentId", id);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/assignStudentToClassForm.jsp");		
@@ -68,6 +84,8 @@ public class SetupStudents extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		out.println("</body>\r\n"
+				+ "</html>");
 	}
 	
 	public void destroy() {

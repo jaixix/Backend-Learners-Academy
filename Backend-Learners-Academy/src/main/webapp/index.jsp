@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <style>
       body{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align:center;
         }
       .header{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,21 +19,29 @@
             background-size: cover;
         }
 </style>
+<%
+		String emailId = request.getParameter("emailId");
+%>
+
+
 </head>
 <body>
+	<c:if test="${empty emailId}">
+    	<%response.sendRedirect("LoginForm.jsp");%>
+	</c:if>
 	<div class="header">
 	<hr>
-	<h1 align="center">Welcome to Learner's Academy - Backend</h1>
-	<h2 align="center">Action Menu</h2>
-	<br>
+	<h1 align="center">Learner's Academy - Backend</h1>
+	<h3>Welcome, <%=emailId %></h3>
+	<h3 align="center">Action Menu</h3>
 	<hr>
 	</div>
 	<br>
 	<table border="1" align="center">
 		<tr>
-			<th>Action</th>
-			<th>Description</th>
-			<th>Link To Proceed</th>
+			<th style="width:42%">Action</th>
+			<th style="width:42%">Description</th>
+			<th style="width:40%">Link To Proceed</th>
 		</tr>
 		<tr>
 			<td>Setup Master List for 'Subjects'</td>
@@ -51,12 +61,12 @@
 		<tr>
 			<td>Setup Master List for 'Students'</td>
 			<td>In order to populate Students Table.</td>
-			<td><a href="setupStudentsForm.jsp">Setup Masters</a></td>
+			<td><a href="setupStudentsForm.jsp">Setup Students Masters</a></td>
 		</tr>
 		<tr>
 			<td>
 				Assign a 'Subject' to a 'Teacher'<br>
-				(Also Assigns Teacher To Class)
+				(Also Assigns Teacher + Subject To Class)
 			</td>
 			<td>In order to assign a Subject to a Teacher
 				<br>and in continuation assign them to a Class. </td>
@@ -77,6 +87,16 @@
 			<td>In order to assign a subject to a teacher.</td>
 			<td><a href="assignStudentToClassForm.jsp">Assign</a></td>
 		</tr>-->
+		<tr>
+			<td>Generate Students-Classes Details Report</td>
+			<td>In order to display class details of Students.</td>
+			<td><a href="DisplayStudentsDetailsOfClass">Generate</a></td>
+		</tr>
+		<tr>
+			<td>Generate Teachers-Classes-Subjects Details Report</td>
+			<td>In order to display class details of Teachers.</td>
+			<td><a href="DisplayTeacherDetailsOfSubjects">Generate</a></td>
+		</tr>
 		<tr>
 			<td>Erase Data from 'Subjects' Table</td>
 			<td>In order to clear records of a specific table.</td>
@@ -101,6 +121,11 @@
 			<td>Change Password</td>
 			<td>In order to change your current password.</td>
 			<td><a href="changePasswordForm.html">Change Password</a></td>
+		</tr>
+		<tr>
+			<td>Logout</td>
+			<td>In order to logout of Admin Account.</td>
+			<td><a href="LoginForm.jsp">Logout</a></td>
 		</tr>
 	</table>
 </body>
