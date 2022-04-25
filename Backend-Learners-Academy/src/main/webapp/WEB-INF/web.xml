@@ -22,5 +22,13 @@
   	<param-name>dbPassword</param-name>
   	<param-value>root</param-value>
   </context-param>
+  <servlet>
+  	<servlet-name>LoginFunctionality</servlet-name>
+  	<servlet-class>com.la.backend.LoginFunctionality</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	 <servlet-name>LoginFunctionality</servlet-name>
+  	<url-pattern>/loginFunctionality</url-pattern>
+  </servlet-mapping>
   
 </web-app>

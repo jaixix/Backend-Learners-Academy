@@ -19,6 +19,7 @@
 </head>
 <body>
 	<h1>Enter Admin Credentials :</h1><br>
+	<!-- <form action="loginCookie.jsp" method="post"> -->
 	<form action="loginFunctionality" method="post">
 		<span>Enter Admin Email ID :</span>
 		<input type="text" name="emailId"><br><br>

@@ -13,11 +13,12 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/loginFunctionality")
+//@WebServlet("/loginFunctionality")
 public class LoginFunctionality extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -66,8 +67,13 @@ public class LoginFunctionality extends HttpServlet {
 			if(rs.next()) {
 					//successful login
 					out.println("<p>Login Successfull</p>");
-					request.setAttribute("emailId", emailId);
+//					request.setAttribute("emailId", emailId);
 //					request.setAttribute("adminName", rs.getString(4));
+					
+					Cookie myCookie = new Cookie("emailId", emailId);
+					myCookie.setMaxAge(60*60);
+					response.addCookie(myCookie);
+					
 					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);
 				}

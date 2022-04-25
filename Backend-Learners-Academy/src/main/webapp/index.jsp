@@ -20,15 +20,24 @@
         }
 </style>
 <%
-		String emailId = request.getParameter("emailId");
+		String emailId = "default";
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(Cookie cookie : cookies){
+				if (cookie.getName().equals("emailId")) {
+					emailId = cookie.getValue();
+					System.out.println(emailId);
+				}
+			}
+		}
+		if(emailId.equalsIgnoreCase("default")){
+			response.sendRedirect("LoginForm.jsp");
+		}
 %>
-
 
 </head>
 <body>
-	<c:if test="${empty emailId}">
-    	<%response.sendRedirect("LoginForm.jsp");%>
-	</c:if>
+	
 	<div class="header">
 	<hr>
 	<h1 align="center">Learner's Academy - Backend</h1>
@@ -125,7 +134,7 @@
 		<tr>
 			<td>Logout</td>
 			<td>In order to logout of Admin Account.</td>
-			<td><a href="LoginForm.jsp">Logout</a></td>
+			<td><a href="logoutFunctionality.jsp">Logout</a></td>
 		</tr>
 	</table>
 </body>

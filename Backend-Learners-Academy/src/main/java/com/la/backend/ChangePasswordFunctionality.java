@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -57,22 +58,26 @@ public class ChangePasswordFunctionality extends HttpServlet {
 				+ "</style>\r\n"
 				+ "</head>");
 		try {
+			statement=connection.createStatement();
 			ResultSet rs = statement.executeQuery("select * from admin where email='"+email+"' and password='"+password+"'");
+			request.setAttribute("emailId", email);
 			if(rs.next()) {
 				int result = statement.executeUpdate("update admin set password='"+newPassword+"' where email='"+email+"'");
 				if(result>0) {
 					out.println("<h3>Password has been Updated!</h3>");
-					out.close();
+					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+					rd.forward(request, response);
 				}
 				else {
-					out.println("<h3>Password could not be changed!<br>Please try Again.</h3>");
+					out.println("<h3>Password could not be changed!<br>Please try Again.</h3><br><br>");
+					out.println("<a href='/changePasswordForm.jsp'>Go Back?</a>");
 				}
 			}
 			else {
 				response.setContentType("text/html");
 				out.println("<h2>Password could not be changed.</h2>");
 				out.println("<h3>Please ensure you are entering the correct credentials!</h3>");
-			
+				out.println("<a href='/changePasswordForm.jsp'>Go Back?</a>");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

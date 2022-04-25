@@ -57,7 +57,7 @@ public class DeleteStudents extends HttpServlet {
 			int result = ps.executeUpdate();
 			response.setContentType("text/html");
 			if(result>0) {
-				out.println("<h2>Success! Table : Classes as been emptied.</h2>");
+				out.println("<h2>Success! Table : Students has been emptied.</h2>");
 				out.println("<h4>To Return to Homepage, <a href=\"index.jsp\">Click Here</a></h4>");
 			}
 			else {

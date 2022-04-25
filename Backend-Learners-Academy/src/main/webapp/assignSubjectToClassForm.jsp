@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Assign Subject to a Class</title>
 <style>
       body{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
